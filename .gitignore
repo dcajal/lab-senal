@@ -11,6 +11,17 @@
 *.cb
 *.cb2
 .*.lb
+*.acn
+*.alg
+*.bbl
+*.blg
+*.glg
+*.glo
+*.gls
+*.idx
+*.xdy
+*.bib
+*.bst
 
 # Compiled source #
 ###################

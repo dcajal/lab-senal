@@ -181,10 +181,47 @@ $$
 E_{x_0x_1} = a_1^TR_{x_ox_o}a_1
 $$
 
-
+Para ello partimos de la expresión del error de predicción
 \begin{equation}
-	\sum_{n}^{}e[n]² = \sum_{n}^{}(x[n]-\sum_{i=1}^{P}a_ix[n-i])²
+e[n] = x[n]-\sum_{i=1}^{P}a_ix[n-i]
 \end{equation}
+
+donde $ai$ son los coeficientes del filtro. Si modificamos el vector de coeficientes de forma que quede
+
+$$
+a_1=[1, -a_1, -a_2, ..., -a_P]
+$$
+
+podemos expresar el error de forma compacta
+
+$$
+e[n] = \sum_{i=0}^{P}a_{1i}x[n-i]
+$$
+
+que expresado en forma matricial queda
+
+$$
+e = a_{1}^TX
+$$
+
+La potencia del error de un LPC es la esperanza del error cuadrático
+$$
+e² = (a_{1}^TX)(a_{1}^TX)^T
+$$
+$$
+e² = a_{1}^TXX^Ta_{1}
+$$
+\\
+$$
+E[e²] = E[a_{1}^TXX^Ta_{1}]
+$$
+$$
+E[e²] = E_{x_0x_1} = a_{1}^TE[XX^T]a_{1}
+$$
+\\
+$$
+E_{x_0x_1} = a_{1}^TR_{x_0x_0}a_{1}
+$$
 
 
 \section{Respuesta frecuencial de un filtro IIR}
@@ -213,8 +250,8 @@ En el artículo se presenta el análisis durante cuatro tareas: vocales sostenid
 
 
 \section{Cálculo eficiente de distancias}
-Código en \textit{Matlab} para la creación de una matriz de distancias entre dos vectores de entrada de forma eficiente.\\
+Código en \textit{Matlab} para la creación de una matriz de distancias entre dos vectores o matrices de forma eficiente.\\
 
 \lstinputlisting[language=Matlab]{../Code/distance.m}
-
+\lstinputlisting[language=Matlab]{../Code/distance_matrix.m}
 \end{document}

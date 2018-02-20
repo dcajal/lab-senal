@@ -23,6 +23,9 @@
 *.bib
 *.bst
 
+# PDF #
+*.pdf
+
 # Compiled source #
 ###################
 *.com

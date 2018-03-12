@@ -1,17 +1,20 @@
-%% Conformado de haz. Generacion de senales
+%% Conformado de haz. Generacion de senales. Multiples interferentes
 
 clear all;
 
 fs = 2000;
 t = 1:1/fs:10;
 N = length(t);
-SNR = 20;
+SNR = 40;
 kd = pi;
 M = 8;
 
 % Senal deseada e interferente
 Ad = cos(2*pi*100.*t);
-Ai = cos(2*pi*50.*t);
+Ai1 = cos(2*pi*50.*t);
+Ai2 = cos(2*pi*60.*t);
+Ai3 = cos(2*pi*70.*t);
+Ai4 = cos(2*pi*80.*t);
 
 potA = sum(abs(Ad).^2)/(N);
 
@@ -30,19 +33,31 @@ for k = -90:90
     j = j + 1;
 end
 
-D45 = generate_d(kd,M,45); % Direccion deseada
-D30 = generate_d(kd,M,30); % Direccion interferente
-w = D45; % Pesos del conformador
+% Direccion deseada
+D25 = generate_d(kd,M,25);
+w = D25; % Pesos del conformador
+
+% Direcciones interferentes
+D_30 = generate_d(kd,M,-30); 
+D0 = generate_d(kd,M,0);
+D20 = generate_d(kd,M,20);
+D45 = generate_d(kd,M,45);
 
 figure
 F_ind = (w'*D)/M;
 % polarplot(theta*pi/180,abs(F_ind)) % Factor de array
 plot(theta,abs(F_ind))
 
-xd = Ad.*D45; % Senal deseada
-xi = Ai.*D30; % Senal interferente
+% Senal deseada
+xd = Ad.*D25; 
 
-x = xd + xi + v;
+% Senales interferentes
+xi1 = Ai1.*D_30;
+xi2 = Ai2.*D0;
+xi3 = Ai3.*D20;
+xi4 = Ai4.*D45;
+
+x = xd + xi1 + xi2 + xi3 + xi4 + v;
 y = w'*x;
 
 % Calculo de la relacion señal a interferente

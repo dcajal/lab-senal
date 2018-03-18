@@ -23,6 +23,7 @@ v = vr + vi;
 
 %% Conformador phased array independiente de los datos
 
+D = zeros(M,181);
 theta = -90:90;
 j = 1;
 for k = -90:90
@@ -45,13 +46,13 @@ xi = Ai.*D30; % Senal interferente
 x = xd + xi + v;
 y = w'*x;
 
-% Calculo de la relacion señal a interferente
+% Calculo de la relacion senal a interferente
 
 % figure
 % plot(abs(fftshift(fft(y)))) % Vemos que la interferente esta atenuada
 Y = abs(fft(y));
 peak = findpeaks(Y(1:ceil(end/2)),'SortStr','descend','NPeaks',2);
-SI = 20*log10(max(peak)/min(peak)); % Relacion señal a interferente
+SI = 20*log10(max(peak)/min(peak)); % Relacion senal a interferente
 fprintf('SIR independiente: %.2f dB\n', SI);
 
 %% Referencia temporal
@@ -69,13 +70,13 @@ plot(theta,abs(F_temp))
 
 y = w'*x;
 
-% Calculo de la relacion señal a interferente
+% Calculo de la relacion senal a interferente
 
 % figure
 % plot(abs(fftshift(fft(y)))) % Vemos que la interferente desaparece
 Y = abs(fft(y));
 peak = findpeaks(Y(1:ceil(end/2)),'SortStr','descend','NPeaks',2);
-SI = 20*log10(max(peak)/min(peak)); % Relacion señal a interferente
+SI = 20*log10(max(peak)/min(peak)); % Relacion senal a interferente
 fprintf('SIR temporal: %.2f dB\n', SI);
 
 
@@ -96,13 +97,13 @@ legend('FA ind', 'FA tmp', 'FA esp')
 
 y = w'*x;
 
-% Calculo de la relacion señal a interferente
+% Calculo de la relacion senal a interferente
 
 % figure
 % plot(abs(fftshift(fft(y)))) % Vemos que la interferente desaparece
 Y = abs(fft(y));
 peak = findpeaks(Y(1:ceil(end/2)),'SortStr','descend','NPeaks',2);
-SI = 20*log10(max(peak)/min(peak)); % Relacion señal a interferente
+SI = 20*log10(max(peak)/min(peak)); % Relacion senal a interferente
 fprintf('SIR espacial: %.2f dB\n', SI);
 
 

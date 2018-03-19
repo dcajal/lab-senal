@@ -1,6 +1,6 @@
 %% Estimacion angulo de llagada. Generacion de senales
 
-clear all;
+clearvars;
 
 fs = 2000;
 t = 1:1/fs:10;
@@ -9,7 +9,7 @@ SNR = 20;
 kd = pi;
 M = 8;
 
-% Conjunto de señales. En este caso no hay deseada.
+% Conjunto de senales. En este caso no hay deseada.
 A1 = cos(2*pi*50.*t);
 A2 = cos(2*pi*60.*t);
 A3 = cos(2*pi*70.*t);
@@ -41,18 +41,20 @@ x5 = A5.*D45;
 x = x1 + x2 + x3 + x4 + x5 + v;
 
 % Creamos los distintos conformadores
-theta = -90:90;
+
+angres = 0.5; % Resolucion en grados
+theta = -90:angres:90;
 tlength = length(theta);
 D = zeros(M,tlength);
 j = 1;
-for k = -90:90
+for k = -90:angres:90
     D(:,j) = generate_d(kd,M,k);
     j = j + 1;
 end
 
 R = (x*x')/N;
 
-%% Metodo de exploracion con phased arrays (periodograma espacial)
+%% Metodo de exploracion con phased arrays (periodograma espacial). 
 
 DF = zeros(1,tlength);
 for k = 1:tlength
@@ -67,25 +69,25 @@ if isempty(index)
     fprintf('No signal detected\n');
 else 
     fprintf('Signal(s) detected at: ');
-    fprintf('%dº, ', index);
+    fprintf('%3.1f, ', index);
     fprintf('\n');
 end
 
-%% Metodo de exploracion con optimizacion espacial
+%% Metodo de exploracion con optimizacion espacial. 3 grados de resolucion para M = 8.
 
 clear DF DF_abs index;
 
 DF = zeros(1,tlength);
-w = zeros(M,tlength);
 for k = 1:tlength
     num = R\D(:,k);
     den = D(:,k)'*num;
-    w(:,k) = num/den;
-    aux = R\w(:,k);
-    dfnum = w(:,k)'*aux;
-    dfden = w(:,k)'*(R\aux);
+    w = num/den;
+    aux = R*w;
+    dfnum = w'*aux;
+    dfden = w'*w;
     DF(:,k) = dfnum/dfden;
 end
+
 
 DF_abs = abs(DF);
 % plot(theta, DF_abs)
@@ -95,7 +97,7 @@ if isempty(index)
     fprintf('No signal detected\n');
 else 
     fprintf('Signal(s) detected at: ');
-    fprintf('%dº, ', index);
+    fprintf('%3.1f, ', index);
     fprintf('\n');
 end
 
@@ -104,7 +106,8 @@ end
 clear DF DF_abs index w num den;
 
 r1 = zeros(M,1);
-r1(ceil(M/2),1) = 1;
+% r1(ceil(M/2),1) = 1;
+r1(3,1) = 1;
 
 num = R\r1;
 den = r1'*num;
@@ -122,7 +125,7 @@ if isempty(index)
     fprintf('No signal detected\n');
 else 
     fprintf('Signal(s) detected at: ');
-    fprintf('%dº, ', index);
+    fprintf('%3.1f, ', index);
     fprintf('\n');
 end
 

@@ -1,0 +1,17 @@
+https://stackoverflow.com/questions/14740567/android-process-audio-for-guitar-tuner
+https://github.com/chRyNaN/Android-Guitar-Tuner/tree/master/app/src/main/java/com/chrynan/android_guitar_tuner/tuner/detection
+
+https://github.com/orchidas/Pitch-Tracking
+https://github.com/mmorise/World/blob/master/src/harvest.cpp
+
+Papers de algoritmos de deteccon de pitch
+
+http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.58.834&rep=rep1&type=pdf
+http://www.dafx17.eca.ed.ac.uk/papers/DAFx17_paper_21.pdf
+http://audition.ens.fr/adc/pdf/2002_JASA_YIN.pdf
+
+
+Audio record: https://developer.android.com/guide/topics/media/mediarecorder.html
+https://stackoverflow.com/questions/6959930/android-need-to-record-mic-input
+
+Hamming window: https://github.com/benelliott/spectrogram-android/blob/master/SpectrogramAndroid/src/uk/co/benjaminelliott/spectrogramandroid/audioproc/windows/HammingWindow.java

@@ -46,7 +46,7 @@
 	keywordstyle=\color{blue},%
 	morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
 	identifierstyle=\color{black},%
-	stringstyle=\color{lilas},
+	%stringstyle=\color{lila},
 	commentstyle=\color{green},%
 	showstringspaces=false,%without this there will be a symbol in the places where there is a space
 	numbers=left,%
@@ -179,7 +179,9 @@ Se define la relación entrada-salida del modelo, donde $x(n)$ representa la sec
 	Gx(n)=s(n) + \sum_{k=1}^{p}a_k s(n-k)\\
 	e(n)= s(n) + \sum_{k=1}^{p}a_k s(n-k) = Gx(n)\\
 	e^2(n)= G^2x^2(n)\\
-	\sum_{n=0}^{N} e^2(n) =  G^2 \sum_{n=0}^{N}x^2(n) = r_s(0) + \sum_{k=1}^{p} a_k r_s(k)
+	\sum_{n=0}^{N} e^2(n) =  G^2 \sum_{n=0}^{N}x^2(n) = r_s(0) + \sum_{k=1}^{p} a_k r_s(k) = \sigma_e^2\\
+	G² = \frac{\sigma_e^2}{\sum_{n=0}^{N}x^2(n)} = \frac{\sigma_e^2}{E_x}\\
+	G = \sqrt{\frac{\sigma_e^2}{E_x}}
 \end{gather*}
 
 
@@ -209,6 +211,6 @@ La autocorrelación en el caso de un tren de N muestras es triangular. Es idént
 
 \section{Detección de pitch}
 
-%\lstinputlisting[language=Matlab]{../Code/.m}
+\lstinputlisting[language=Matlab]{../Code/pitch.m}
 
 \end{document}

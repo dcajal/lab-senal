@@ -163,7 +163,28 @@ Se puede determinar el género del locutor sólo mediante segmentos sonoros. Los
 
 Así, el primer segmento es válido para este objetivo, ya que corresponde a un sonido de vocal y se puede apreciar a simple vista la periodicidad. El segundo segmento no es válido por lo comentado anteriormente. Sin ningún procesado se aprecia que la forma de la onda de la segunda señal se asemeja más a ruido que a una señal periódica.
 
+
 \section{Factor de ganancia}
+Para conocer el factor de ganancia del modelo hay que partir de la siguiente representación.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{modelo_produccion_voz.PNG}
+	\caption{Modelo “excitación-filtro” de producción de la voz. }
+\end{figure}
+
+Se define la relación entrada-salida del modelo, donde $x(n)$ representa la secuencia de entrada que puede ser un tren de pulsos o ruido blanco aleatorio.
+\begin{gather*}
+	s(n)=Gx(n) - \sum_{k=1}^{p}a_k s(n-k)\\
+	Gx(n)=s(n) + \sum_{k=1}^{p}a_k s(n-k)\\
+	e(n)= s(n) + \sum_{k=1}^{p}a_k s(n-k) = Gx(n)\\
+	e^2(n)= G^2x^2(n)\\
+	\sum_{n=0}^{N} e^2(n) =  G^2 \sum_{n=0}^{N}x^2(n) = r_s(0) + \sum_{k=1}^{p} a_k r_s(k)
+\end{gather*}
+
+
+
+
 
 \section{Autocorrelación de un tren de impulsos infinito}
 La función de autocorrelación de un tren periódico de impulsos de duración infinita y periodo $T_0$ es una función rampa discreta infinita. Esta tiene valores nulos para todas las $n$ que no son múltiplos del periodo y un valor M para $n = M*T_0$, siendo M un número natural. Es nula para valores de $n$ negativos.

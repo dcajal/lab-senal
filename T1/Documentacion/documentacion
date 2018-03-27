@@ -13,5 +13,6 @@ http://audition.ens.fr/adc/pdf/2002_JASA_YIN.pdf
 
 Audio record: https://developer.android.com/guide/topics/media/mediarecorder.html
 https://stackoverflow.com/questions/6959930/android-need-to-record-mic-input
+https://www.newventuresoftware.com/blog/record-play-and-visualize-raw-audio-data-in-android
 
 Hamming window: https://github.com/benelliott/spectrogram-android/blob/master/SpectrogramAndroid/src/uk/co/benjaminelliott/spectrogramandroid/audioproc/windows/HammingWindow.java

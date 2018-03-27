@@ -6,7 +6,7 @@ p = 10;  % Orden del predictor LPC
 
 a = lpc(s,p);
 res = filter(a,1,s);
-re = xcorr(res);
+re = xcorr(res,'biased');
 re_nor = re/max(re);
 tcorr = 0:ts:(ts*(length(re)-1));
 [~, index] = findpeaks(re_nor,tcorr,'SortStr','descend','MinPeakHeight',umbral);

@@ -36,4 +36,8 @@ public class Audio {
         return floatBuffer;
     }
 
+    public static int getSampleRate() { return AUDIO_SAMPLE_RATE; }
+
+    public static int getReadSize() { return AUDIO_RECORD_READ_SIZE; }
+
 }

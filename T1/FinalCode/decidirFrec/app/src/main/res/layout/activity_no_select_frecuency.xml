@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.pris.decidirfrec.MainActivity">
+
+
+    <Button
+        android:id="@+id/buttonStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="77dp"
+        android:text="START" />
+
+    <Button
+        android:id="@+id/buttonStop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/buttonStart"
+        android:layout_marginEnd="66dp"
+        android:text="STOP" />
+
+    <TextView
+        android:id="@+id/textViewSup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/buttonStart"
+        android:layout_below="@+id/buttonStart"
+        android:layout_marginTop="31dp"
+        android:text="Nota superior"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/textViewInf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textViewSup"
+        android:layout_below="@+id/editTextSup"
+        android:layout_marginTop="32dp"
+        android:text="Nota inferior"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/editTextSup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textViewInf"
+        android:layout_below="@+id/editTextNoteS"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Hz" />
+
+    <EditText
+        android:id="@+id/editTextInf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editTextNoteI"
+        android:layout_below="@+id/editTextNoteI"
+        android:layout_marginTop="13dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Hz" />
+
+    <EditText
+        android:id="@+id/editTextNoteS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/editTextSup"
+        android:layout_below="@+id/textViewSup"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/editTextNoteI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textViewInf"
+        android:layout_below="@+id/textViewInf"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+
+</RelativeLayout>

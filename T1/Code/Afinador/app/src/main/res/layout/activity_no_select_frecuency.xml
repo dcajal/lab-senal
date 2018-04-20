@@ -13,8 +13,8 @@
         android:layout_height="65dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="119dp"
-        android:textSize="30sp" />
+        android:layout_marginTop="193dp"
+        android:textSize="36sp" />
 
     <TextView
         android:id="@+id/difference_display"
@@ -31,7 +31,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="234dp"
+        android:layout_marginBottom="204dp"
         android:text="Difference:"
-        android:textSize="18sp" />
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="136dp"
+        android:text="Detected note:"
+        android:textSize="24sp" />
 </RelativeLayout>

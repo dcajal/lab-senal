@@ -1,15 +1,14 @@
-/*
 package com.diego.afinador;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
 import java.util.Locale;
 
 
-public class NoSelectFrequency extends Activity{
+public class NoSelectFrequency extends AppCompatActivity {
     // According to the YIN Paper, the threshold should be between 0.10 and 0.15
     private static final float ABSOLUTE_THRESHOLD = 0.125f;
 
@@ -26,8 +25,8 @@ public class NoSelectFrequency extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_no_select_frecuency);
-        noteDisplay = (TextView) findViewById(R.id.note_display);
-        diffDisplay = (TextView) findViewById(R.id.diff_display);
+        noteDisplay = (TextView) findViewById(R.id.detected_note_display);
+        diffDisplay = (TextView) findViewById(R.id.difference_display);
 
         Thread t = new Thread(detectionThread);
         t.start();
@@ -78,10 +77,9 @@ public class NoSelectFrequency extends Activity{
                             }
                         });
                     } else {
-                        */
-/**Yin detector according to the paper: "YIN, a fundamental
-                         *frequency estimator for speech and music"*//*
-
+                        /**Yin detector according to the paper: "YIN, a fundamental
+                         * frequency estimator for speech and music"
+                         */
                         pitch = pitchDetector(x);
                         averagePitch(pitch);
                     }
@@ -114,8 +112,8 @@ public class NoSelectFrequency extends Activity{
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    updateNoteDisp("-");
-                    updateTextView();
+                    updateTextView(Notes.difference(mean));
+                    updateNoteDisp(Notes.notesName[Notes.getDispNote()]);
                 }
             });
             count = 1;
@@ -219,4 +217,3 @@ public class NoSelectFrequency extends Activity{
     }
 
 }
-*/

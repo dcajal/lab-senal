@@ -10,10 +10,10 @@
         android:id="@+id/buttonSeleccionFrecuencia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonNoSeleccionFrecuencia"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="48dp"
-        android:text="Seleccionar frecuencia" />
+        android:layout_marginBottom="190dp"
+        android:text="Selección de nota" />
 
     <Button
         android:id="@+id/buttonNoSeleccionFrecuencia"
@@ -22,5 +22,5 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="110dp"
-        android:text="No seleccionar frecuencia" />
+        android:text="Detección automática" />
 </RelativeLayout>

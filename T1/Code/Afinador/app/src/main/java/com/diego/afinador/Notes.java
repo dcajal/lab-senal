@@ -91,6 +91,8 @@ public class Notes {
             // The note is the upper one of the pair
             if (currentNote == -1) { //The note is a C
                 dispNote = 0;
+            } else if (currentNote == 11) { //The note is a C (upper C)
+                dispNote = 0;
             } else {
                 dispNote = currentNote + 1;
             }

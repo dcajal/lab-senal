@@ -200,9 +200,89 @@ $$W(e^{j\omega}) = X(e^{j\omega})|H(e^{j\omega})|²$$
 
 El filtro resultante tiene una función de transferencia igual al cuadrado del valor absoluto de la función de transferencia original. Es \textbf{real} y positiva, por lo que no tiene distorsión de fase.
 
-\section{Validacion del algoritmo de detección}
+\section{Estimador de máxima verosimilitud}
+Como se va a utilizar un estimador MLE para obtener los parámetros de amplitud e instante de comienzo: $[\hat{n}, \hat{a}] = argmax{ln(f(x|n_0,a))}$
+En primer lugar, se obtiene $f(x|n_0,a)$ a partir de $x[n] = a\cdot s(n-n_0) + v(n)$. \\
+\begin{gather*}
+f(x|n_0,a) = \dfrac{1}{(2\pi\sigma^2)^{N/2}}\cdot exp\left[-\dfrac{1}{2\sigma^2} 
+\left(\sum_{n=0}^{n_0-1}x^2(n) + \sum_{n=n_0}^{n_0+D-1}(x(n) - a\cdot(n-n_0))^2 +\sum_{n=n_0+D}^{N-1}x^2(n) \right)  \right]
+\end{gather*}
+A continuación se procede a realizar el logaritmo neperiano de la función $f(x|n_0,a)$
+\begin{gather*}
+ln(f(x|n_0,a)) = \left[ ln(1) - \frac{N}{2}ln(2\pi\sigma^2) \right] + \\
++\left[  -\dfrac{1}{2\sigma^2} 
+\left(\sum_{n=0}^{n_0-1}x^2(n) + \sum_{n=n_0}^{n_0+D-1}(x(n) - a\cdot(n-n_0))^2 +\sum_{n=n_0+D}^{N-1}x^2(n) \right)  \right]  
+\end{gather*}
+
+Se desarrolla previamente la expresión $\sum_{n=n_0}^{n_0+D-1}(x(n) - a\cdot(n-n_0))^2$ para obtener $ln(f(x|n_0,a))$ de forma más simplificada.
+\begin{gather*}
+\sum_{n=n_0}^{n_0+D-1}(x(n) - a\cdot(n-n_0))^2 = \sum_{n=n_0}^{n_0+D-1} (x^2(n) + a^2 x^2(n-n_0) - a\cdot x(n)s(n-n_0)) 		
+\end{gather*}
+
+Sustituyendo la expresión anterior en $ln(f(x|n_0,a))$ se obtiene:
+\begin{gather*}
+ln(f(x|n_0,a)) = - \frac{N}{2}ln(2\pi\sigma^2) -\dfrac{1}{2\sigma^2} [ \sum_{n=0}^{n_0-1}x^2(n) + \\
++\sum_{n=n_0}^{n_0+D-1}x^2(n) + \sum_{n=n_0+D}^{N-1}x^2(n) + a^2\sum_{n=n_0}^{n_0+D-1}s^2(n-n_0) - 2a\sum_{n=n_0}^{n_0+D-1}x(n)s(n-n_0) ] =\\
+=- \frac{N}{2}ln(2\pi\sigma^2) - \dfrac{1}{2\sigma ^2} \left[ \sum_{n=0}^{N-1}x^2(n) - \dfrac{a^2}{2\sigma^2}E_s + \dfrac{a}{\sigma^2}\sum_{n=n_0}^{n_0+D-1}x(n)s(n-n_0)\right] 
+\end{gather*}
+
+De los parámetros que debemos estimar, en primer lugar se obtiene la estimación de la amplitud aplicando $\dfrac{\partial ln(f(x|n_0,a))}{\partial a} = 0$
+\begin{gather*}
+ln(f(x|n_0,a)) = - \frac{N}{2}ln(2\pi\sigma^2) + \frac{1}{\sigma^2} \left( \dfrac{1}{2}\sum_{n=0}^{N-1}x^2(n) -\dfrac{a^2}{2}E_s
++a\sum_{n=n_0}^{n_0+D-1}x(n)s(n-n_0) \right) \\ 
+\dfrac{\partial ln(f(x|n_0,a))}{\partial a} = \frac{1}{\sigma^2} \left( \dfrac{-2a}{2} E_s + \sum_{n=n_0}^{n_0+D-1}x(n)s(n-n_0) \right)\\
+\frac{1}{\sigma^2} \left( \dfrac{-2a}{2} E_s + \sum_{n=n_0}^{n_0+D-1}x(n)s(n-n_0) \right) =0\\
+\left( -a\cdot E_s + \sum_{n=n_0}^{n_0+D-1}x(n)s(n-n_0) \right) =0\\	
+\sum_{n=n_0}^{n_0+D-1}x(n)s(n-n_0) = a\cdot E_s\\
+a= \dfrac{\sum_{n=n_0}^{n_0+D-1}x(n)s(n-n_0)}{E_s} = \dfrac{y(n)}{E_s}
+\end{gather*}
+Finalmente, se obtiene el valor de la amplitud estimada. Si consideramos el sumatorio como la salida de un filtro adaptado al QRS patrón s(n), el instante en el que se maximiza es cuando $n=n_0$.
+
+\begin{gather*}
+\hat{a} = argmax{\dfrac{y(n)}{E_s}}=\dfrac{y(n_0)}{E_s}
+\end{gather*}
+\\
+
+Como se trata de un problema de estimar ambas variables, una vez que se ha obtenido $\hat{a}$ se sustituye en $ln(f(x|n_0,a))$ para estimar $\hat{n}$. Hay que tener en cuenta en la dicha expresión solo el último término depende de $n_0$ por lo que habrá que maximizar $\hat{n}= argmax\{ a\sum_{n=n_0}^{n_0+D-1}x(n)s(n-n_0) \}$.
+\begin{gather*}
+\hat{n} = argmax\{ \hat{a}\sum_{n=n_0}^{n_0+D-1}x(n)s(n-n_0) \} = \\
+=argmax\{ y(n_0) \cdot \sum_{n=n_0}^{n_0+D-1}x(n)s(n-n_0) \}
+=argmax\{y(n_0) y(n)\}
+\end{gather*}
+Al igual que en el caso anterior, el instante en el que se maximiza ocurre cuando $n=n_0$ y de esta forma se obtiene $\hat{n}$.
+\begin{gather*}
+\hat{n_0} = argmax\{y(\hat{n_0})^2\}
+\end{gather*}
+
+\section{Validación del algoritmo de detección}
 Se ha desarrollado la siguiente función para determinar la precisión del algoritmo de detección de complejos QRS.\\
 
 \lstinputlisting[language=Matlab]{../Code/validate_QRS.m}
+
+\section{Desalineamiento en el promediado}
+El principal efecto del desalineamiento en el promediado es que puede haber un desalineamiento en el m-ciclo ya que cada ciclo debería aparecer en $t=mT$ pero en este caso podría aparecer en $t=mT+\theta$.
+
+A continuación se procede a obtener la expresión del espectro de la esperanza de dicho promedio.
+\begin{gather*}
+E\{ \hat{s} \} = \frac{1}{M} E\{ \sum_{i=1}^{M}s(n-\theta_i)  \}
+\end{gather*}
+Teniendo en cuenta que las variables aleatorias uniformes tienen la siguiente propiedad $E[x(n)] = \sum_{\theta = -\infty}^{\infty}x(n)p_{\theta}(\theta)$. Y, además, que la esperanza pasa a ser un valor constante, se obtiene que el sumatorio de M veces la esperanza es dicho valor multiplicado por M.
+\begin{gather*}
+E\{ \hat{s} \} = \frac{M}{M} \sum_{\theta = -\infty}^{\infty} s(n-\theta)p_{\theta}(\theta) = \sum_{\theta = -\infty}^{\infty} s(n-\theta)p_{\theta}(\theta)
+\end{gather*}
+
+Finalmente la expresión del espectro se consigue transformando al dominio frecuencial si consideramos que $E\{ \hat{s} \} = s(n)*p_{\theta}(\theta)$.
+Transformando las señales por separado:
+\begin{gather*}
+s(n) \rightarrow S(e^{jw})\\
+P_{\theta}(\theta) = \sum_{\theta = -\infty}^{\infty}p_{\theta}(\theta)e^{jw\theta}
+\end{gather*}
+La expresión final que se obtiene es la siguiente:
+\begin{gather*}
+E\{ \hat{S}(e^{jw}) \}=S(e^{jw})P_{\theta}(\theta)
+\end{gather*}
+
+\section{Algoritmo LMS}
+A partir de los gráficos de la diapositiva 96 se deduce que los mejores valores para $\mu$ se obtiene cuando se acerca a cero.
 
 \end{document}

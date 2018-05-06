@@ -166,7 +166,7 @@ A continuación se presentan algunos ejemplos de publicaciones del grupo de inve
 \textbf{Métodos de procesado:} Real Wavelet Biphase (Método original, propuesto en el mismo paper).\\
 \textbf{Referencia:} Assessment of Quadratic Nonlinear
 Cardiorespiratory Couplings During Tilt Table Test
-by Means of Real Wavelet Biphase [2018]. Autores: Spyridon Kontaxis, Jesús Lázaro, Eduardo Gil, Pablo Laguna, Raquel Bailón\\\\
+by Means of Real Wavelet Biphase [2018]. Autores: Spyridon Kontaxis, Jesús Lázaro, Eduardo Gil, Pablo Laguna, Raquel Bailón.\\\\
 
 \textbf{Aplicación:} Estudio del Sistema Nervioso Autónomo.\\
 \textbf{Señales involucradas:} ECG, PPG (pulse-photoplethysmogra).\\
@@ -175,7 +175,34 @@ by Means of Real Wavelet Biphase [2018]. Autores: Spyridon Kontaxis, Jesús Láz
 Hyperbaric Environments using ECG and PPG signals [2018]. Autores: Alberto Hernando, María Dolores Peláez-Coca, María Teresa Lozano, Montserrat Aiger, David Izquierdo, Alberto
 Sánchez, María Isabel López-Jurado, Ignacio Moura, Joaquín Fidalgo, Jesús Lázaro, Eduardo Gil.\\\\
 
+\section{Filtro de fase cero}
+La función \textit{filtfilt} de \textit{Matlab} filtra la señal de entrada normalmente y después voltea la salida y la vuelve a filtrar. Por último, voltea de nuevo la salida del segundo filtrado. Esto produce una función de transferencia total (después de ambos filtrados) con fase igual a cero, es decir, sin distorsión de fase. Para obtener la función de transferencia de forma analítica se hace uso de la siguiente propiedad de la transformada discreta de Fourier:
 
-%\lstinputlisting[language=Matlab]{../Code/distance.m}
-%\lstinputlisting[language=Matlab]{../Code/distance_matrix.m}
+\begin{equation}
+x[n]\leftrightarrow X(e^{j\omega}) \Leftrightarrow x[-n]\leftrightarrow X^*(e^{j\omega})
+\end{equation}
+
+Tras el primer filtrado, para una entrada $X(e^{j\omega})$, se tiene
+
+$$Y(e^{j\omega}) = X(e^{j\omega})H(e^{j\omega})$$
+
+al voltearlo, usando la propiedad (1) antes nombrada
+
+$$Z(e^{j\omega}) = X^*(e^{j\omega})H^*(e^{j\omega})$$
+
+En este punto se vuelve a filtrar con el mismo filtro
+
+$$V(e^{j\omega}) = X^*(e^{j\omega})H^*(e^{j\omega})H(e^{j\omega}) = X^*(e^{j\omega})|H(e^{j\omega})|²$$
+
+y se voltea de nuevo
+
+$$W(e^{j\omega}) = X(e^{j\omega})|H(e^{j\omega})|²$$
+
+El filtro resultante tiene una función de transferencia igual al cuadrado del valor absoluto de la función de transferencia original. Es \textbf{real} y positiva, por lo que no tiene distorsión de fase.
+
+\section{Validacion del algoritmo de detección}
+Se ha desarrollado la siguiente función para determinar la precisión del algoritmo de detección de complejos QRS.\\
+
+\lstinputlisting[language=Matlab]{../Code/validate_QRS.m}
+
 \end{document}

@@ -243,9 +243,9 @@ Finalmente, se obtiene el valor de la amplitud estimada. Si consideramos el suma
 \end{gather*}
 \\
 
-Como se trata de un problema de estimar ambas variables, una vez que se ha obtenido $\hat{a}$ se sustituye en $ln(f(x|n_0,a))$ para estimar $\hat{n}$. Hay que tener en cuenta en la dicha expresión solo el último término depende de $n_0$ por lo que habrá que maximizar $\hat{n}= argmax\{ a\sum_{n=n_0}^{n_0+D-1}x(n)s(n-n_0) \}$.
+Como se trata de un problema de estimar ambas variables, una vez que se ha obtenido $\hat{a}$ se sustituye en $ln(f(x|n_0,a))$ para estimar $\hat{n}$. Hay que tener en cuenta en la dicha expresión solo el último término depende de $n_0$ por lo que habrá que maximizar $\hat{n_0}= argmax\{ a\sum_{n=n_0}^{n_0+D-1}x(n)s(n-n_0) \}$.
 \begin{gather*}
-\hat{n} = argmax\{ \hat{a}\sum_{n=n_0}^{n_0+D-1}x(n)s(n-n_0) \} = \\
+\hat{n_0} = argmax\{ \hat{a}\sum_{n=n_0}^{n_0+D-1}x(n)s(n-n_0) \} = \\
 =argmax\{ y(n_0) \cdot \sum_{n=n_0}^{n_0+D-1}x(n)s(n-n_0) \}
 =argmax\{y(n_0) y(n)\}
 \end{gather*}
@@ -262,7 +262,7 @@ Se ha desarrollado la siguiente función para determinar la precisión del algor
 \section{Desalineamiento en el promediado}
 El principal efecto del desalineamiento en el promediado es que puede haber un desalineamiento en el m-ciclo ya que cada ciclo debería aparecer en $t=mT$ pero en este caso podría aparecer en $t=mT+\theta$.
 
-A continuación se procede a obtener la expresión del espectro de la esperanza de dicho promedio.
+A continuación, se procede a obtener la expresión del espectro de la esperanza de dicho promedio.
 \begin{gather*}
 E\{ \hat{s} \} = \frac{1}{M} E\{ \sum_{i=1}^{M}s(n-\theta_i)  \}
 \end{gather*}
@@ -283,6 +283,25 @@ E\{ \hat{S}(e^{jw}) \}=S(e^{jw})P_{\theta}(\theta)
 \end{gather*}
 
 \section{Algoritmo LMS}
-A partir de los gráficos de la diapositiva 96 se deduce que los mejores valores para $\mu$ se obtiene cuando se acerca a cero.
-
+A partir de los gráficos de la diapositiva 96 se deduce que los mejores valores para $\mu$ se obtiene cuando se acerca a cero. De los valores disponibles se elige $\mu = 0.01$.
+El desajuste M se calcula de la siguiente forma:
+\begin{gather*}
+	M=\dfrac{\mu}{2}Tr[ R_{xx}] = \dfrac{\alpha}{3}
+\end{gather*}
+En nuestro caso, debido a que la matriz de autocorrelación de z[n] es la matriz identidad multiplicada por $1/L$ la traza que se obtiene es igual a la unidad.
+\begin{gather*}
+	M=\dfrac{\mu}{2}Tr[ R_{xx}] = =\frac{0.01}{2}\cdot 1 = 0.005
+\end{gather*}
+Para el cálculo del tiempo de convergencia se aplica
+\begin{gather*}
+	\tau_{mse,max} = \dfrac{3}{4\alpha}\dfrac{\sum_{k=0}^{L-1}\lambda_k}{\lambda_{min}}
+\end{gather*}
+En primer lugar es necesario conocer el valor de $\alpha$ a partir del desajuste M.
+\begin{gather*}
+	M=\dfrac{\alpha}{3} \to \alpha = 3M=3\cdot 0.005=0.015
+\end{gather*}
+También hay que tener en cuenta que el valor que toman los autovalores es $\lambda_k =1/L $.
+\begin{gather*}
+\tau_{mse,max} = \dfrac{3}{4\cdot 0.015}\dfrac{\sum_{k=0}^{L-1} 1/L}{1/L} = \dfrac{3}{4\cdot 0.015} \dfrac{L\cdot 1/L}{1/L}= 50\dfrac{1}{1/L} =50L
+\end{gather*}
 \end{document}

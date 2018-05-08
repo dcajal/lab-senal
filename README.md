@@ -5,6 +5,7 @@
   - P2: Procesado en array: conformado de haz y estimación de ángulo de llegada (DOA)
   - P3: Codificación de voz LPC
   - P4: Compresión de pulsos de radar y radar doppler pulsado
+  - P5: Acondicionamiento y procesado básico de señales biomédicas: ECG
 
 ## Trabajos
   - T1: Aplicación práctica sobre hardware con recursos limitados: Afinador Android
